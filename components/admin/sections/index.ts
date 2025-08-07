@@ -1,0 +1,9 @@
+// Export all section components for easier importing
+export { default as KeyBenefitsSection } from './KeyBenefitsSection'
+export { default as CurriculumSection } from './CurriculumSection'
+export { default as FacilitatorSection } from './FacilitatorSection'
+export { default as VideoTestimonialSection } from './VideoTestimonialSection'
+export { default as TextTestimonialsSection } from './TextTestimonialsSection'
+export { default as FAQSection } from './FAQSection'
+export { default as ProgramImpactSection } from './ProgramImpactSection'
+export { default as UpcomingSessionsSection } from './UpcomingSessionsSection'
