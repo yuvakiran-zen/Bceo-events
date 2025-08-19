@@ -1,4 +1,4 @@
-// File: D:\BCEO Events\app\admin\page.tsx
+// File: /Users/yuvakiranzen/Developer/Bsm/bceoevents/app/admin/page.tsx
 import * as entry from '../../../../app/admin/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

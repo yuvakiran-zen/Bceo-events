@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 
 interface Event {
   id: string
+  _id?: string
   title: string
   subtitle: string
   shortDescription: string
@@ -23,6 +24,7 @@ interface Event {
   participants: number
   createdAt: string
   lastModified: string
+  updatedAt?: string
   facilitator: {
     name: string
     title: string
@@ -353,6 +355,126 @@ export function useCreateEvent() {
     success,
     saveAsDraft,
     clearMessages
+  }
+}
+
+export function useDraftEvents() {
+  const [drafts, setDrafts] = useState<Event[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const fetchDrafts = async () => {
+    setLoading(true)
+    setError(null)
+    
+    try {
+      console.log('📄 Fetching draft events...')
+      
+      const response = await fetch(`${API_BASE_URL}/api/events?status=draft`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      
+      if (data.success !== false) {
+        setDrafts(data.events || data || [])
+        console.log('✅ Draft events fetched successfully:', data.events?.length || data?.length || 0, 'drafts')
+      } else {
+        throw new Error(data.message || data.error || 'Failed to fetch draft events')
+      }
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch draft events'
+      console.error('❌ Fetch drafts error:', errorMessage)
+      setError(errorMessage)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const deleteDraft = async (draftId: string) => {
+    try {
+      console.log('🗑️ Deleting draft:', draftId)
+      
+      const response = await fetch(`${API_BASE_URL}/api/events/${draftId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      
+      if (data.success !== false) {
+        // Remove the deleted draft from the local state
+        setDrafts(prev => prev.filter(draft => (draft._id || draft.id) !== draftId))
+        console.log('✅ Draft deleted successfully')
+      } else {
+        throw new Error(data.message || data.error || 'Failed to delete draft')
+      }
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to delete draft'
+      console.error('❌ Delete draft error:', errorMessage)
+      throw new Error(errorMessage)
+    }
+  }
+
+  const publishDraft = async (draftId: string) => {
+    try {
+      console.log('📤 Publishing draft:', draftId)
+      
+      const response = await fetch(`${API_BASE_URL}/api/events/${draftId}/publish`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      
+      if (data.success !== false) {
+        // Remove the published draft from the local state
+        setDrafts(prev => prev.filter(draft => (draft._id || draft.id) !== draftId))
+        console.log('✅ Draft published successfully')
+      } else {
+        throw new Error(data.message || data.error || 'Failed to publish draft')
+      }
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to publish draft'
+      console.error('❌ Publish draft error:', errorMessage)
+      throw new Error(errorMessage)
+    }
+  }
+
+  const refetch = () => {
+    fetchDrafts()
+  }
+
+  useEffect(() => {
+    fetchDrafts()
+  }, [])
+
+  return {
+    drafts,
+    loading,
+    error,
+    refetch,
+    deleteDraft,
+    publishDraft
   }
 }
 

@@ -20,8 +20,7 @@ import {
   CurrencyDollarIcon
 } from '@heroicons/react/24/outline'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useDraftEvents } from '@/hooks/useEvents'
-import { Event } from '@/lib/api/events'
+import { useDraftEvents, Event } from '@/hooks/useEvents'
 
 export default function DraftsPage() {
   const { drafts, loading, error, refetch, deleteDraft, publishDraft } = useDraftEvents()
@@ -53,7 +52,7 @@ export default function DraftsPage() {
     if (selectedDrafts.length === drafts.length) {
       setSelectedDrafts([])
     } else {
-      setSelectedDrafts(drafts.map(draft => draft._id))
+      setSelectedDrafts(drafts.map(draft => draft._id || draft.id).filter(Boolean))
     }
   }
 
@@ -249,12 +248,12 @@ export default function DraftsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {drafts.map((draft) => (
                 <DraftCard
-                  key={draft._id}
+                  key={draft._id || draft.id}
                   draft={draft}
-                  isSelected={selectedDrafts.includes(draft._id)}
-                  onToggleSelect={() => toggleDraftSelection(draft._id)}
-                  onPublish={() => handlePublishDraft(draft._id)}
-                  onDelete={() => handleDeleteDraft(draft._id)}
+                  isSelected={selectedDrafts.includes(draft._id || draft.id)}
+                  onToggleSelect={() => toggleDraftSelection(draft._id || draft.id)}
+                  onPublish={() => handlePublishDraft(draft._id || draft.id)}
+                  onDelete={() => handleDeleteDraft(draft._id || draft.id)}
                   isPublishing={isPublishing === draft._id}
                 />
               ))}
@@ -291,7 +290,7 @@ function DraftCard({
     })
   }
 
-  const getTimeAgo = (dateString: string) => {
+  const getTimeAgo = (dateString: string | undefined) => {
     if (!dateString) return 'Unknown'
     const date = new Date(dateString)
     const now = new Date()
@@ -401,7 +400,7 @@ function DraftCard({
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Link
-              href={`/admin/create?draft=${draft._id}`}
+              href={`/admin/create?draft=${draft._id || draft.id}`}
               className="text-xs text-blue-600 hover:text-blue-800 flex items-center space-x-1"
             >
               <PencilIcon className="w-3 h-3" />

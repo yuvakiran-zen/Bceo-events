@@ -8,7 +8,10 @@
     "dev": "nodemon server.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "seed": "node scripts/seedData.js"
+    "seed": "node scripts/seedData.js",
+    "postinstall": "npm run build || echo 'No build step required'",
+    "build": "echo 'Build completed'",
+    "prestart": "echo 'Starting BCEO Events API...'"
   },
   "keywords": [
     "events",
