@@ -15,3 +15,9 @@ run:
       value: "production"
     - name: PORT
       value: "3000"
+    - name: MONGODB_URI
+      value: "mongodb+srv://skillsync_prod:wo99R49PfZrLsm9d@skillsync.xk9qniq.mongodb.net/bceo-events"
+    - name: CLIENT_URL
+      value: "http://localhost:3000"
+    - name: FRONTEND_URL
+      value: "http://localhost:3000"
