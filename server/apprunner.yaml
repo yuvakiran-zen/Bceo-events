@@ -1,23 +1,30 @@
+# Backend (Express.js API) Configuration for AWS App Runner
 version: 1.0
 runtime: nodejs18
 build:
   commands:
     build:
-      - npm ci
+      - echo "=== BACKEND BUILD STARTED ==="
+      - echo "Installing backend dependencies..."
+      - npm ci --only=production
+      - echo "Running build script..."
       - npm run build
+      - echo "=== BACKEND BUILD COMPLETED ==="
 run:
   command: npm start
   network:
-    port: 3000
+    port: 8080
     env: PORT
   env:
     - name: NODE_ENV
       value: "production"
     - name: PORT
-      value: "3000"
+      value: "8080"
     - name: MONGODB_URI
       value: "mongodb+srv://skillsync_prod:wo99R49PfZrLsm9d@skillsync.xk9qniq.mongodb.net/bceo-events"
     - name: CLIENT_URL
-      value: "http://localhost:3000"
+      value: "https://fzmmxyxqqb.ap-south-1.awsapprunner.com/"
     - name: FRONTEND_URL
-      value: "http://localhost:3000"
+      value: "https://fzmmxyxqqb.ap-south-1.awsapprunner.com/"
+    - name: API_BASE_URL
+      value: "https://ymeu3ythmr.ap-south-1.awsapprunner.com"

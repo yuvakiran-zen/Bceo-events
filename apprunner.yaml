@@ -1,13 +1,15 @@
+# Frontend (Next.js) Configuration for AWS App Runner
 version: 1.0
 runtime: nodejs18
 build:
   commands:
     build:
-      - echo "Installing dependencies..."
+      - echo "=== FRONTEND BUILD STARTED ==="
+      - echo "Installing frontend dependencies..."
       - npm ci --only=production=false
       - echo "Building Next.js application..."
       - npm run build
-      - echo "Build completed successfully"
+      - echo "=== FRONTEND BUILD COMPLETED ==="
 run:
   command: npm start
   network:

@@ -1,12 +1,5 @@
 {
-  "/_not-found": "app/_not-found.js",
-  "/admin/drafts/page": "app/admin/drafts/page.js",
-  "/admin/create/page": "app/admin/create/page.js",
-  "/api/events/[eventId]/publish/route": "app/api/events/[eventId]/publish/route.js",
-  "/admin/preview/[eventId]/page": "app/admin/preview/[eventId]/page.js",
-  "/admin/page": "app/admin/page.js",
-  "/events/[slug]/page": "app/events/[slug]/page.js",
+  "/not-found": "app/not-found.js",
   "/events/page": "app/events/page.js",
-  "/page": "app/page.js",
-  "/for-you/page": "app/for-you/page.js"
+  "/page": "app/page.js"
 }
