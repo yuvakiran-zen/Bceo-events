@@ -15,7 +15,7 @@ const options = {
     },
     servers: [
       {
-        url: process.env.API_URL || 'http://localhost:8080',
+        url: process.env.API_URL || 'https://ymeu3ythmr.ap-south-1.awsapprunner.com',
         description: 'Development server'
       },
       {

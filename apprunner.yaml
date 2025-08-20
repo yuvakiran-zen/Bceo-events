@@ -3,8 +3,11 @@ runtime: nodejs18
 build:
   commands:
     build:
-      - npm ci
+      - echo "Installing dependencies..."
+      - npm ci --only=production=false
+      - echo "Building Next.js application..."
       - npm run build
+      - echo "Build completed successfully"
 run:
   command: npm start
   network:
@@ -15,3 +18,7 @@ run:
       value: "production"
     - name: PORT
       value: "3000"
+    - name: NEXT_PUBLIC_API_URL
+      value: "https://ymeu3ythmr.ap-south-1.awsapprunner.com/api"
+    - name: NEXT_TELEMETRY_DISABLED
+      value: "1"
