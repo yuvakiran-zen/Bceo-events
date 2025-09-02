@@ -21,6 +21,6 @@ run:
     - name: PORT
       value: "3000"
     - name: NEXT_PUBLIC_API_URL
-      value: "https://2r93emmcmh.ap-south-1.awsapprunner.com/"
+      value: "https://2r93emmcmh.ap-south-1.awsapprunner.com/api"
     - name: NEXT_TELEMETRY_DISABLED
       value: "1"
