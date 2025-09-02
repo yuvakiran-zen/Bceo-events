@@ -104,7 +104,7 @@ interface UseEventsReturn {
 }
 
 // Get the Express server URL from environment or default to AWS App Runner
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://2r93emmcmh.ap-south-1.awsapprunner.com/'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://2r93emmcmh.ap-south-1.awsapprunner.com'
 
 export function useEvents(): UseEventsReturn {
   const [events, setEvents] = useState<Event[]>([])
