@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://ymeu3ythmr.ap-south-1.awsapprunner.com/api'
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://2r93emmcmh.ap-south-1.awsapprunner.com/api'
 
 // Event interface matching the backend model
 export interface Event {
